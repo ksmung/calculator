@@ -56,7 +56,7 @@ pipeline {
     }
      post {
 		     always {
-		          sh "docker stop ksmung/calculator"
+		          sh "docker stop calculator"
 		     }
 		}
 }
