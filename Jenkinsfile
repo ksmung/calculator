@@ -40,7 +40,7 @@ pipeline {
   			          sh "docker build -t ksmung/calculator ."
   			       }
   			   }
-        
+
         stage("Deploy to staging") {
              steps {
                   sh "docker run -d --rm -p 8765:8080 --name calculator ksmung/calculator"
@@ -49,6 +49,7 @@ pipeline {
         stage("Acceptance test") {
              steps {
                   sleep 60
+                  sh "chmod +x acceptance_test.sh"
                   sh "./acceptance_test.sh"
              }
         }
