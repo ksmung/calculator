@@ -2,7 +2,7 @@ pipeline {
      agent any
      tools {
         maven 'Maven3.6.1' 
-    }
+      }
      stages {
           stage("Checkout") {
                steps {
@@ -26,37 +26,21 @@ pipeline {
                reportDir: 'target/site/jacoco',
                reportFiles: 'index.html',
                reportName: "JaCoCo Report"
-          ])
+                ])
               }
           }
           stage("Package") {
 			     steps {
 			          sh "mvn package"
-			     }
-			}
+			         }
+			    }
 
 			stage("Docker build") {
 			     steps {
 			          sh "docker build -t ksmung/calculator ."
-			     }
-			}
-			stage("Docker push") {
-			     steps {
-			          sh "docker push ksmung/calculator"
-			     }
-			}
-			stage("Deploy to staging") {
-			     steps {
-			          sh "docker run -d --rm -p 8765:8080 --name calculator ksmung/calculator"
-			     }
-			}
-			stage("Acceptance test") {
-			     steps {
-			          sleep 60
-			          sh "./acceptance_test.sh"
-			     }
-			}
-     }
+			       }
+			   }
+    }
      post {
 		     always {
 		          sh "docker stop calculator"
