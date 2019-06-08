@@ -1,4 +1,8 @@
 pipeline {
+      environment {
+        registry = "ksmung/calculator"
+        registryCredential = "docker_id"
+      }
      agent any
      tools {
         maven 'Maven3.6.1' 
